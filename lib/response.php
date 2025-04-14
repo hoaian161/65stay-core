@@ -9,7 +9,7 @@ class Response {
     }
 
     public function status($code) {
-        $this->data["status1"] = $code;
+        $this->data["status"] = $code;
     }
 
     public function message($message) {

@@ -1,11 +1,10 @@
 <?php
+// classes/room.php
 require_once(realpath($_SERVER["DOCUMENT_ROOT"])."/core/lib/init.php");
 
 class Room {
-    private $code;
     private $price;
     private $detail;
-    
     
     public function  __construct() {
         $this->detail = [
@@ -51,11 +50,19 @@ class Room {
         ];
     }
 
+    public function setPrice($price) {
+        $this->price = $price;
+    }
+
     public function getDetail() {
         return $this->detail;
     }
 
     public function setDetail($level, $key, $val) {
         $this->detail[$level][$key] = $val;
+    }
+
+    public function save() {
+        Database::call("INSERT INTO `rooms` (`price`, `detail`) VALUES ('".$this->price."', '".json_encode($this->detail)."')", 0);
     }
 }
