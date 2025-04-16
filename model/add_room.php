@@ -19,7 +19,7 @@ if (!Validate::alnum($data["h_name"], 1, 50)) {
     $response->message("Owner's phone number must be 10 - 11 digits long");
 } else if (!Validate::textSpecial($data["h_address"], 1, 255)) {
     $response->message("Address is required");
-} else if (!Validate::textSpecial($data["h_roadImages"], 1, 255)) {
+} else if (!Validate::textSpecial($data["h_roadImages"], 1, 1000)) {
     $response->message("Road image path is required");
 } else if (!Validate::number($data["h_emptyRoomNum"], 1, 99, 1, 2)) {
     $response->message("Empty room count must be a number between 1 - 99");
@@ -84,10 +84,18 @@ if (!Validate::alnum($data["h_name"], 1, 50)) {
 } else {
     $room->setPrice(Validate::filter($data["r_price"]));
     $room->setDetail("boarding_house", "name", Validate::filter($data["h_name"]));
+    $room->setDetail("boarding_house", "address", Validate::filter($data["h_address"]));
+
+    if ($room->isDuplicated()) {
+        $response->status(0);
+        $response->message("Room was duplicated");
+
+        $response->throw();
+    }
+    
     $room->setDetail("boarding_house", "owner_name", Validate::filter($data["h_ownerName"]));
     $room->setDetail("boarding_house", "owner_gender", Validate::filter($data["h_ownerGender"]));
     $room->setDetail("boarding_house", "owner_phone", Validate::filter($data["h_ownerPhone"]));
-    $room->setDetail("boarding_house", "address", Validate::filter($data["h_address"]));
     $room->setDetail("boarding_house", "road_images", Validate::filter($data["h_roadImages"]));
     $room->setDetail("boarding_house", "empty_room_num", Validate::filter($data["h_emptyRoomNum"]));
     $room->setDetail("boarding_house", "total_room_num", Validate::filter($data["h_totalRoomNum"]));
@@ -97,7 +105,7 @@ if (!Validate::alnum($data["h_name"], 1, 50)) {
     $room->setDetail("boarding_house", "flooding", Validate::filter($data["h_flooding"]));
     $room->setDetail("boarding_house", "around_size", Validate::filter($data["h_aroundSize"]));
     $room->setDetail("boarding_house", "contract_duration", Validate::filter($data["h_contractDuration"]));
-    $room->setDetail("boarding_house", "sercurity", Validate::filter($data["h_security"]));
+    $room->setDetail("boarding_house", "security", Validate::filter($data["h_security"]));
     $room->setDetail("boarding_house", "feedback", Validate::filter($data["h_feedback"]));
     $room->setDetail("boarding_house", "extensions", Validate::filter($data["h_extensions"]));
     $room->setDetail("boarding_room", "room_num", Validate::filter($data["r_roomNum"]));
@@ -119,9 +127,9 @@ if (!Validate::alnum($data["h_name"], 1, 50)) {
     $room->setDetail("boarding_room", "waterPrice", Validate::filter($data["r_waterPrice"]));
     $room->setDetail("boarding_room", "beforeTimeRelease", Validate::filter($data["r_beforeTimeRelease"]));
     $room->save();
- 
+
     $response->status(1);
-    $response->message("Phòng đã được thêm thành công");
+    $response->message("Room has been added successfully");
     $response->data("detail", $room->getDetail());
 }
 

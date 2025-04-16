@@ -7,6 +7,6 @@ class Auth {
     }
 
     public function create($gid, $name, $email, $avatar) {
-        Database::call("INSERT INTO `account` (`gid`, `name`, `email`, `avatar`, `balance`, `created`) VALUES ('".$gid."', '".$name."', '".$email."', '".$avatar."', '0', '".Time::getCurrent()."')", 0);
+        Database::call("INSERT INTO `account` (`gid`, `name`, `email`, `avatar`, `balance`, `pre_subscription`, `created`) VALUES ('".$gid."', '".$name."', '".$email."', '".$avatar."', '0', '0', '".Time::getCurrent()."')", 0);
     }
 }
