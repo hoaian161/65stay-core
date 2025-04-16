@@ -3,18 +3,34 @@ require_once(realpath($_SERVER["DOCUMENT_ROOT"])."/core/lib/init.php");
 require_once(realpath($_SERVER["DOCUMENT_ROOT"])."/core/classes/auth.php");
 
 $response = new Response();
-$auth = new Auth();
+$response->status(0);
 
-$userInfo = $_GET;
+$type = $_GET;
+$username = $_GET;
+$password = $_GET;
 
-if($auth->exist($userInfo["gid"])) {
-    $response->status(1);
-    $response->message("Login successfully");
-} else {
-    $auth->create($userInfo["gid"], $userInfo["name"], $userInfo["email"], $userInfo["avatar"]);
+$auth = new Auth($userName, $passWord);
+
+if ($type === "login") {
+    if ($auth->login() == 0) {
+        $response->message("Invalid username or password");
+    } else {
+        $response->status(1);
+        $response->message("Login successful");
+    }
+} else if ($type === "register") {
+    $register = $auth->register();
     
-    $response->status(1);
-    $response->message("Register successfully");
+    if ($register == 0) {
+        $response->message("Username must be 6-30 letters, without special characters.");
+    } else if ($register == -1){
+        $response->message("Password must be 8-30 characters");
+    } else if ($register == -2) {
+        $response->message("Account already exists");
+    } else {
+        $response->status(1);
+        $response->message("Register successfully");
+    }
 }
 
 $response->throw();
