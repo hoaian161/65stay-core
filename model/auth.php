@@ -9,7 +9,7 @@ $type = $_GET;
 $username = $_GET;
 $password = $_GET;
 
-$auth = new Auth($userName, $passWord);
+$auth = new Auth($username, $password);
 
 if ($type === "login") {
     if ($auth->login() == 0) {
@@ -20,9 +20,8 @@ if ($type === "login") {
     }
 } else if ($type === "register") {
     $register = $auth->register();
-    
     if ($register == 0) {
-        $response->message("Username must be 6-30 letters, without special characters.");
+        $response->message("Username must be 6-30 letters, without special characters");
     } else if ($register == -1){
         $response->message("Password must be 8-30 characters");
     } else if ($register == -2) {

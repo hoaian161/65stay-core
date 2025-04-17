@@ -49,9 +49,9 @@ class Room {
                     "images" => "", // pub
                     "size" => "", // pub
                     "videos" => "", // pre
-                    "electricityPrice" => "", // premi
-                    "waterPrice" => "", // pub
-                    "beforeTimeRelease" => "" // premi
+                    "electricity_price" => "", // premi
+                    "water_price" => "", // pub
+                    "before_time_pelease" => "" // premi
                 ]
             ];
         }
@@ -75,9 +75,119 @@ class Room {
 
     public function save() {
         if ($this->id) {
-            Database::call("UPDATE `rooms` SET `price` = '".$this->price."',` detail` = ".json_encode($this->detail)." WHERE `ID` = '".$this->id."'");
+            Database::call("UPDATE `rooms` SET
+                `h_name` = '".$this->detail["boarding_house"]["name"]."',
+                `h_owner_name` = '".$this->detail["boarding_house"]["owner_name"]."',
+                `h_owner_gender` = '".$this->detail["boarding_house"]["owner_gender"]."',
+                `h_owner_phone` = '".$this->detail["boarding_house"]["owner_phone"]."',
+                `h_address` = '".$this->detail["boarding_house"]["address"]."',
+                `h_road_images` = '".$this->detail["boarding_house"]["road_images"]."',
+                `h_empty_room_num` = '".$this->detail["boarding_house"]["empty_room_num"]."',
+                `h_total_room_num` = '".$this->detail["boarding_house"]["total_room_num"]."',
+                `h_parking_lot_type` = '".$this->detail["boarding_house"]["parking_lot_type"]."',
+                `h_parking_lot_images` = '".$this->detail["boarding_house"]["parking_lot_images"]."',
+                `h_share_owner` = '".$this->detail["boarding_house"]["share_owner"]."',
+                `h_flooding` = '".$this->detail["boarding_house"]["flooding"]."',
+                `h_around_size` = '".$this->detail["boarding_house"]["around_size"]."',
+                `h_security` = '".$this->detail["boarding_house"]["security"]."',
+                `h_contract_duration` = '".$this->detail["boarding_house"]["contract_duration"]."',
+                `h_feedback` = '".$this->detail["boarding_house"]["feedback"]."',
+                `h_extensions` = '".$this->detail["boarding_house"]["extensions"]."',
+                `r_room_num` = '".$this->detail["boarding_room"]["room_num"]."',
+                `r_residence_type` = '".$this->detail["boarding_room"]["residence_type"]."',
+                `r_private_time` = '".$this->detail["boarding_room"]["private_time"]."',
+                `r_wall_color` = '".$this->detail["boarding_room"]["wall_color"]."',
+                `r_balcony` = '".$this->detail["boarding_room"]["balcony"]."',
+                `r_mezzanine` = '".$this->detail["boarding_room"]["mezzanine"]."',
+                `r_window` = '".$this->detail["boarding_room"]["window"]."',
+                `r_pet` = '".$this->detail["boarding_room"]["pet"]."',
+                `r_child` = '".$this->detail["boarding_room"]["child"]."',
+                `r_drunk` = '".$this->detail["boarding_room"]["drunk"]."',
+                `r_allow_mixed_gender` = '".$this->detail["boarding_room"]["allow_mixed_gender"]."',
+                `r_max_people_num` ='".$this->detail["boarding_room"]["max_people_num"]."',
+                `r_images` = '".$this->detail["boarding_room"]["images"]."',
+                `r_size` = '".$this->detail["boarding_room"]["size"]."',
+                `r_videos` = '".$this->detail["boarding_room"]["videos"]."',
+                `r_electricity_price` = '".$this->detail["boarding_room"]["electricity_price"]."',
+                `r_water_price` = '".$this->detail["boarding_room"]["water_price"]."',
+                `r_before_time_release` = '".$this->detail["boarding_room"]["before_time_release"]."'
+            WHERE `ID` = '".$this->id."'");
         } else {
-            Database::call("INSERT INTO `rooms` (`price`, `detail`) VALUES ('".$this->price."', '".json_encode($this->detail)."')", 0);
+            Database::call("INSERT INTO `rooms`
+            (
+                `h_name`,
+                `h_owner_name`,
+                `h_owner_gender`,
+                `h_owner_phone`,
+                `h_address`,
+                `h_road_images`,
+                `h_empty_room_num`,
+                `h_total_room_num`,
+                `h_parking_lot_type,
+                `h_parking_lot_images`,
+                `h_share_owner`,
+                `h_flooding`,
+                `h_around_size`,
+                `h_security`,
+                `h_contract_duration`,
+                `h_feedback`,
+                `h_extensions`,
+                `r_room_num`,
+                `r_residence_type`,
+                `r_private_time`,
+                `r_wall_color`,
+                `r_balcony`,
+                `r_mezzanine`,
+                `r_window`,
+                `r_child`,
+                `r_drunk`,
+                `r_allow_mixed_gender`,
+                `r_max_people_num`,
+                `r_images`,
+                `r_size`,
+                `r_videos`,
+                `r_electricity_price`,
+                `r_water_price`,
+                `r_before_time_release`
+            )
+                VALUES
+            (
+                '".$this->detail["boarding_house"]["name"]."',
+                '".$this->detail["boarding_house"]["owner_name"]."',
+                '".$this->detail["boarding_house"]["owner_gender"]."',
+                '".$this->detail["boarding_house"]["owner_phone"]."',
+                '".$this->detail["boarding_house"]["address"]."',
+                '".$this->detail["boarding_house"]["road_images"]."',
+                '".$this->detail["boarding_house"]["empty_room_num"]."',
+                '".$this->detail["boarding_house"]["total_room_num"]."',
+                '".$this->detail["boarding_house"]["parking_lot_type"]."',
+                '".$this->detail["boarding_house"]["parking_lot_images"]."',
+                '".$this->detail["boarding_house"]["share_owner"]."',
+                '".$this->detail["boarding_house"]["flooding"]."',
+                '".$this->detail["boarding_house"]["around_size"]."',
+                '".$this->detail["boarding_house"]["security"]."',
+                '".$this->detail["boarding_house"]["contract_duration"]."',
+                '".$this->detail["boarding_house"]["feedback"]."',
+                '".$this->detail["boarding_house"]["extensions"]."',
+                '".$this->detail["boarding_room"]["room_num"]."',
+                '".$this->detail["boarding_room"]["residence_type"]."',
+                '".$this->detail["boarding_room"]["private_time"]."',
+                '".$this->detail["boarding_room"]["wall_color"]."',
+                '".$this->detail["boarding_room"]["balcony"]."',
+                '".$this->detail["boarding_room"]["mezzanine"]."',
+                '".$this->detail["boarding_room"]["window"]."',
+                '".$this->detail["boarding_room"]["pet"]."',
+                '".$this->detail["boarding_room"]["child"]."',
+                '".$this->detail["boarding_room"]["drunk"]."',
+                '".$this->detail["boarding_room"]["allow_mixed_gender"]."',
+                '".$this->detail["boarding_room"]["max_people_num"]."',
+                '".$this->detail["boarding_room"]["images"]."',
+                '".$this->detail["boarding_room"]["size"]."',
+                '".$this->detail["boarding_room"]["videos"]."',
+                '".$this->detail["boarding_room"]["electricity_price"]."',
+                '".$this->detail["boarding_room"]["water_price"]."',
+                '".$this->detail["boarding_room"]["before_time_release"]."'
+            )", 0);
         }
     }
 
@@ -122,7 +232,7 @@ class Room {
                     "max_people_num",
                     "images",
                     "size",
-                    "waterPrice"
+                    "water_pprice"
                 ]
             ]
         );
@@ -162,9 +272,9 @@ class Room {
                     "images",
                     "size",
                     "videos",
-                    "electricityPrice",
-                    "waterPrice",
-                    "beforeTimeRelease"
+                    "electricity_pprice",
+                    "water_pprice",
+                    "before_time_release"
                 ]
             ]
         );
@@ -185,3 +295,84 @@ class Room {
         );
     }
 }
+
+/*
+(
+    `h_name`,
+    `h_owner_name`,
+    `h_owner_gender`,
+    `h_owner_phone`,
+    `h_address`,
+    `h_road_images`,
+    `h_empty_room_num`,
+    `h_total_room_num`,
+    `h_parking_lot_type,
+    `h_parking_lot_images`,
+    `h_share_owner`,
+    `h_flooding`,
+    `h_around_size`,
+    `h_security`,
+    `h_contract_duration`,
+    `h_feedback`,
+    `h_extensions`,
+    `r_room_num`,
+    `r_residence_type`,
+    `r_private_time`,
+    `r_wall_color`,
+    `r_balcony`,
+    `r_mezzanine`,
+    `r_window`,
+    `r_child`,
+    `r_drunk`,
+    `r_allow_mixed_gender`,
+    `r_max_people_num`,
+    `r_images`,
+    `r_size`,
+    `r_videos`,
+    `r_electricity_price`,
+    `r_water_price`,
+    `r_before_time_release`,
+)
+    VALUES
+(
+    '".$this->detail["boarding_house"]["name"]."',
+    '".$this->detail["boarding_house"]["owner_name"]."',
+    '".$this->detail["boarding_house"]["owner_gender"]."',
+    '".$this->detail["boarding_house"]["owner_phone"]."',
+    '".$this->detail["boarding_house"]["address"]."',
+    '".$this->detail["boarding_house"]["road_images"]."',
+    '".$this->detail["boarding_house"]["empty_room_num"]."',
+    '".$this->detail["boarding_house"]["total_room_num"]."',
+    '".$this->detail["boarding_house"]["parking_lot_type"]."',
+    '".$this->detail["boarding_house"]["parking_lot_images"]."',
+    '".$this->detail["boarding_house"]["share_owner"]."',
+    '".$this->detail["boarding_house"]["flooding"]."',
+    '".$this->detail["boarding_house"]["around_size"]."',
+    '".$this->detail["boarding_house"]["security"]."',
+    '".$this->detail["boarding_house"]["contract_duration"]."',
+    '".$this->detail["boarding_house"]["feedback"]."',
+    '".$this->detail["boarding_house"]["extensions"]."',
+
+    '".$this->detail["boarding_room"]["room_num"]."',
+    '".$this->detail["boarding_room"]["residence_type"]."',
+    '".$this->detail["boarding_room"]["private_time"]."',
+    '".$this->detail["boarding_room"]["wall_color"]."',
+    '".$this->detail["boarding_room"]["balcony"]."',
+    '".$this->detail["boarding_room"]["mezzanine"]."',
+    '".$this->detail["boarding_room"]["window"]."',
+    '".$this->detail["boarding_room"]["pet"]."',
+    '".$this->detail["boarding_room"]["child"]."',
+
+    '".$this->detail["boarding_room"]["drunk"]."',
+    '".$this->detail["boarding_room"]["allow_mixed_gender"]."',
+    '".$this->detail["boarding_room"]["max_people_num"]."',
+    '".$this->detail["boarding_room"]["images"]."',
+    '".$this->detail["boarding_room"]["size"]."',
+    '".$this->detail["boarding_room"]["videos"]."',
+    '".$this->detail["boarding_room"]["electricity_price"]."',
+    '".$this->detail["boarding_room"]["water_price"]."',
+    '".$this->detail["boarding_room"]["before_time_release"]."',
+    
+)
+
+*/

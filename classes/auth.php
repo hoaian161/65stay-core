@@ -9,7 +9,7 @@ class Auth {
     public function __construct($username, $password){
         $this->username = $username;
         $this->password = $password;
-        $this->user =  Database::call("SELECT * FROM `account` WHERE `username` = '".$this->username."'", 1);;
+        $this->user = Database::call("SELECT * FROM `account` WHERE `username` = '".$this->username."'", 1);;
     }
 
     public function login() {
@@ -18,7 +18,7 @@ class Auth {
                 return 1;
             }
         }
-
+        
         return 0; 
     }
 
@@ -31,7 +31,7 @@ class Auth {
             return -2;
         }
         
-        Database::call("INSERT INTO `account` (`username`, `password`) VALUES ('".$this->username."', '".$this->password."')");
+        Database::call("INSERT INTO `account` (`username`, `password`, `balance`, `pre_subscription`, `created`) VALUES ('".$this->username."', '".$this->password."', '0', '0', '".Time::getCurrent()."')");
         return 1;
     }   
 }

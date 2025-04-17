@@ -27,7 +27,7 @@ if (!Validate::alnum($data["h_name"], 1, 50)) {
     $response->message("Total room count must be a number between 1 - 100");
 } else if (!Validate::alpha($data["h_parkingLotType"], 1, 50)) {
     $response->message("Parking lot type must be between 1 - 50 alphabetic characters");
-} else if (!Validate::textSpecial($data["h_parkingLotImages"], 1, 255)) {
+} else if (!Validate::textSpecial($data["h_parkingLotImages"], 1, 1000)) {
     $response->message("Parking lot image path is required");
 } else if (!Validate::bool($data["h_shareOwner"])) {
     $response->message("Shared ownership option is required"); 
@@ -69,11 +69,11 @@ if (!Validate::alnum($data["h_name"], 1, 50)) {
     $response->message("Mixed-gender gathering option is required"); 
 } else if (!Validate::integer($data["r_maxPeopleNum"], 1, 10, 1, 2)) {
     $response->message("Maximum occupancy must be between 1 - 10 people"); 
-} else if (!Validate::textSpecial($data["r_images"], 1, 255)) {
+} else if (!Validate::textSpecial($data["r_images"], 1, 1000)) {
     $response->message("Room image path is required");
 } else if (!Validate::number($data["r_size"], 1, 1000, 1, 4)) {
     $response->message("Room size is invalid. Please enter a value between 1 - 1000");
-} else if (!Validate::textSpecial($data["r_videos"], 1, 255)) {
+} else if (!Validate::textSpecial($data["r_videos"], 1, 1000)) {
     $response->message("Room video path is required");
 } else if (!Validate::number($data["r_electricityPrice"], 0, 100000, 0, 6)) {
     $response->message("Electricity price is invalid");
@@ -123,9 +123,9 @@ if (!Validate::alnum($data["h_name"], 1, 50)) {
     $room->setDetail("boarding_room", "images", Validate::filter($data["r_images"]));
     $room->setDetail("boarding_room", "size", Validate::filter($data["r_size"]));
     $room->setDetail("boarding_room", "videos", Validate::filter($data["r_videos"]));
-    $room->setDetail("boarding_room", "electricityPrice", Validate::filter($data["r_electricityPrice"]));
-    $room->setDetail("boarding_room", "waterPrice", Validate::filter($data["r_waterPrice"]));
-    $room->setDetail("boarding_room", "beforeTimeRelease", Validate::filter($data["r_beforeTimeRelease"]));
+    $room->setDetail("boarding_room", "electricity_price", Validate::filter($data["r_electricityPrice"]));
+    $room->setDetail("boarding_room", "water_price", Validate::filter($data["r_waterPrice"]));
+    $room->setDetail("boarding_room", "before_time_release", Validate::filter($data["r_beforeTimeRelease"]));
     $room->save();
 
     $response->status(1);
